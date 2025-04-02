@@ -1,16 +1,16 @@
-function MyButton() {
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/home';
+import Quiz from './pages/quiz';
+
+function App() {
   return (
-    <button>
-      I'm a button
-    </button>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/quiz" element={<Quiz />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default function MyApp() {
-  return (
-    <div>
-      <h1>Welcome to my app</h1>
-      <MyButton />
-    </div>
-  );
-}
+export default App;
