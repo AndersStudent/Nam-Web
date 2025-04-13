@@ -1,0 +1,109 @@
+.divclass {
+  background-color: #fcfcfc;
+  margin-left: 160px;  /* give space for left ad */
+  margin-right: 160px; /* give space for right ad */
+  padding: 20px; /* optional for breathing room */
+}
+
+.header {
+  position: fixed;
+  top: auto;
+}
+  .h1Class {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: rgb(246, 61, 61);
+    background-color: rgb(255, 251, 245);
+    border-style:solid;
+    border-color: #cecece;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .h2Class {
+    color:rgb(85, 85, 78);
+    font-style:italic;
+  }
+  .parentcontainer {
+    justify-content: center;
+    display: flex;
+  }
+
+  .fadeImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .hide {
+    opacity: 0;
+  }
+  
+  .show {
+    opacity: 1;
+  }
+
+  .imageFadeContainer {
+      width: 1000px;  /* adjust based on your images */
+      height: 600px;
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid white; /* optional, looks clean */
+  border-radius: 10px; /* optional */
+  }
+
+  .button1Class {
+    padding: 12px 192px;
+    background-Color: #2163eb;
+    color: rgb(237, 237, 237);
+    border: none;
+    border-Radius: 16px;
+    cursor: pointer;
+    font-Size: 2rem;
+    box-Shadow: 0 4px 6px rgba(241, 241, 241, 0.1);
+  }
+
+  .pageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .adContainer {
+    width: 250px;  /* or whatever size you want */
+    height: 600px;
+    background-color: #ffebf0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+  .adLeft {
+    left: 0;
+  }
+  
+  .adRight {
+    right: 0;
+  }
+  
+  .adImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  
