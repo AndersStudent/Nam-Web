@@ -75,7 +75,7 @@ setInterval(() => {
       <button className="button1Class" onClick={() => navigate("/quiz")}>
         Start Quiz
       </button>
-      <button className="button1Class" onClick={() => navigate("/leaderbord")}>
+      <button className="button1Class" onClick={() => navigate("/leaderboard")}>
         Leaderboard
       </button>
     </h3>
