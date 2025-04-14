@@ -50,7 +50,7 @@
   }
 
   .imageFadeContainer {
-      width: 1000px;  /* adjust based on your images */
+      max-width: 70vw;  /* adjust based on your images */
       height: 600px;
       margin: 20px auto;
       position: relative;
@@ -79,7 +79,7 @@
   }
   
   .adContainer {
-    width: 250px;  /* or whatever size you want */
+    max-width: 13vw;  /* or whatever size you want */
     height: 600px;
     background-color: #ffebf0;
     overflow: hidden;
@@ -93,11 +93,11 @@
   }
   
   .adLeft {
-    left: 0;
+    left: 10px;
   }
   
   .adRight {
-    right: 0;
+    right: 10px;
   }
   
   .adImage {

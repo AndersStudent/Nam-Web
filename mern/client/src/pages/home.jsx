@@ -13,6 +13,20 @@ export default function HomePage() {
     'src/assets/image5.jpg',
   ]
 
+  const gifs = [
+    'src/assets/gif1.gif',
+    'src/assets/gif11.gif'
+  ]
+
+  let currentIndex = 0;
+const imgElement = document.getElementById('slideshow');
+
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % gifs.length;  // Loop back to 0
+  imgElement.src = gifs[currentIndex];
+}, 3000);
+
+
   const [currentImage, setCurrentImage] = useState(0);
   const [fade, setFade] = useState(true);
 
@@ -36,11 +50,13 @@ export default function HomePage() {
     <div className="pageContainer">
   {/* Left Ad */}
   <div className="adContainer adLeft">
-    <img src="src/assets/gif1.gif" alt="Fake Ad" className="adImage" />
+    <img id="slideshow" src="gif1.gif" alt="Slideshow Image" width="400" className="adImage"/>
+
   </div>
 
   {/* Main Content */}
   <div className="divclass">
+    <title>FeedBuzzing</title>
     <h1 className="h1Class">FeedingBuzz</h1>
 
     <h2 className="parentcontainer h2Class">
@@ -58,6 +74,9 @@ export default function HomePage() {
     <h3 className="parentcontainer">
       <button className="button1Class" onClick={() => navigate("/quiz")}>
         Start Quiz
+      </button>
+      <button className="button1Class" onClick={() => navigate("/leaderbord")}>
+        Leaderboard
       </button>
     </h3>
   </div>
