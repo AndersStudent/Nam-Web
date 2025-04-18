@@ -1,49 +1,85 @@
 .result-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 2rem;
-    max-width: 90vw;
-    margin: 0 auto;
-    gap: 2rem;
-    flex-wrap: wrap; /* makes it responsive on small screens */
-  }
-  
-  .result-main {
-    flex: 2;
-    padding: 1.5rem;
-    background-color: #fef7f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .character-name {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #5b3e8c;
-  }
-  
-  .leaderboard {
-    flex: 1;
-    background-color: #e8f0fe;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .leaderboard h3 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .leaderboard ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .leaderboard li {
-    padding: 0.4rem 0;
-    border-bottom: 1px solid #ccc;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  max-width: 90vw;
+  margin: 0 auto;
+  gap: 2rem;
+  flex-wrap: wrap; /* makes it responsive on small screens */
+}
+
+.result-main {
+  flex: 2;
+  padding: 1.5rem;
+  background-color: #fef7f0;
+  color: black;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result-gif {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.character-name {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #5b3e8c;
+}
+
+/* 👇 Updated leaderboard with scroll */
+.leaderboard {
+  flex: 1;
+  background-color: #e8f0fe;
+  color: black;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  max-height: 543px;     /* Set a max height for scroll */
+  overflow-y: auto;      /* Scroll if it overflows */
+  scroll-behavior: smooth;
+}
+
+/* Optional: make the scrollbar prettier in WebKit browsers */
+.leaderboard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.leaderboard::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.leaderboard h3 {
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.leaderboard li strong {
+  color: #5b3e8c;
+}
+
+.leaderboard li em {
+  color: #d45d00;
+  font-style: normal;
+}
