@@ -1,109 +1,216 @@
+/* Wraps the whole page */
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+/* Ad panel container */
+.adContainer {
+  max-width: 14vw;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 10px; /* ← space inside the ad box */
+  box-sizing: border-box;
+}
+
+.nameContainer {
+  flex-direction: column;
+  text-align: center;
+  max-width: 65vw; /* a bit roomier */
+  margin: 20px auto;
+  color: black;
+  font-size: 2rem;
+}
+
+.nameInputField {
+  background-color: #fcfcfc;
+  border: 2px solid #cecece;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  color: black;
+}
+
+
+/* Add space between ad and screen edge */
+.adLeft {
+  left: 20px; /* ← moves ad 20px away from left edge */
+}
+
+.adRight {
+  right: 20px; /* ← moves ad 20px away from right edge */
+}
+
+/* Main content shifts over so it doesn’t overlap ads */
 .divclass {
   background-color: #fcfcfc;
-  margin-left: 160px;  /* give space for left ad */
-  margin-right: 160px; /* give space for right ad */
-  padding: 20px; /* optional for breathing room */
+  margin-left: 200px; /* allows for ad + gap (160px + 20px padding) */
+  margin-right: 200px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.header {
+
+/* Text and button styling remains mostly the same */
+.h1Class {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: rgb(246, 61, 61);
+  background-color: rgb(255, 251, 245);
+  border-bottom: 1px solid #cecece;
+}
+
+.h2Class {
+  color: rgb(85, 85, 78);
+  font-style: italic;
+}
+
+.parentcontainer {
+  justify-content: center;
+  display: flex;
+}
+
+.fadeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+}
+
+.imageFadeContainer {
+  max-width: 70vw;
+  height: 600px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.button1Class {
+  padding: 12px 48px;
+  background-color: #2163eb;
+  color: rgb(237, 237, 237);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 6px rgba(241, 241, 241, 0.1);
+  margin: 0 10px;
+}
+
+.popupOverlay {
   position: fixed;
-  top: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
-  .h1Class {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    color: rgb(246, 61, 61);
-    background-color: rgb(255, 251, 245);
-    border-style:solid;
-    border-color: #cecece;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-  }
 
-  .h2Class {
-    color:rgb(85, 85, 78);
-    font-style:italic;
-  }
-  .parentcontainer {
-    justify-content: center;
-    display: flex;
-  }
+.popupVideoWrapper {
+  position: relative;
+  max-width: 1000px; /* Increase this value to make it bigger */
+  width: 90%;
+}
 
-  .fadeImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
-  }
+.popupAdGifOnly {
+  width: 100%;
+  height: auto;
+  max-height: 80vh; /* Ensures it doesn't exceed screen height */
+  border-radius: 10px;
+  display: block;
+  object-fit: contain; /* Keeps the aspect ratio nice */
+}
 
-  .hide {
-    opacity: 0;
-  }
-  
-  .show {
-    opacity: 1;
-  }
+.exitAdButton {
+  position: absolute;
+  top: 0px;
+  right: -30px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 1.4rem;
+  color: #333;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
 
-  .imageFadeContainer {
-      max-width: 70vw;  /* adjust based on your images */
-      height: 600px;
-      margin: 20px auto;
-      position: relative;
-      overflow: hidden;
-      border: 2px solid white; /* optional, looks clean */
-  border-radius: 10px; /* optional */
-  }
+.exitAdButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .button1Class {
-    padding: 12px 192px;
-    background-Color: #2163eb;
-    color: rgb(237, 237, 237);
-    border: none;
-    border-Radius: 16px;
-    cursor: pointer;
-    font-Size: 2rem;
-    box-Shadow: 0 4px 6px rgba(241, 241, 241, 0.1);
-  }
+.adCloseWrapper {
+  position: absolute;
+  top: 8px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 4px 8px;
+}
 
-  .pageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .adContainer {
-    max-width: 13vw;  /* or whatever size you want */
-    height: 600px;
-    background-color: #ffebf0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-  }
-  
-  .adLeft {
-    left: 10px;
-  }
-  
-  .adRight {
-    right: 10px;
-  }
-  
-  .adImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.exitAdButton {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
 
-  
+.exitAdButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.countdownText {
+  font-size: 0.9rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
