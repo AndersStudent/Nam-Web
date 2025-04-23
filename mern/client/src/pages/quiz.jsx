@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './quiz.css';
+import { useLocation } from 'react-router-dom';
 
-export default function Quiz({
-  quizTitle = "If you were a Howl's Moving Castle Character, who would you be?",
-  userId = "1"
-}) {
+export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle Character, who would you be?" }) {
+ 
+  const location = useLocation();
+  const userId = location.state?.userId || "1";
+
   const [questions, setQuestions]   = useState([]);
   const [currentQ, setCurrentQ]     = useState(0);
   const [answersLog, setAnswersLog] = useState([]);

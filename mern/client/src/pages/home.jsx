@@ -155,7 +155,7 @@ export default function HomePage() {
           <div className="adCloseWrapper">
             <button
               className="exitAdButton"
-              onClick={() => navigate("/quiz")}
+              onClick={() => navigate("/quiz", { state: { userId: name } })}
               disabled={!canCloseAd}
               aria-label="Close ad"
             >
