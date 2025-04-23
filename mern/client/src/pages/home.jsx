@@ -6,9 +6,9 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const images = [
-    'src/assets/image1.png',
+    'src/assets/image6.jpg',
     'src/assets/image2.jpg',
-    'src/assets/image3.jpg',
+    'src/assets/image3.png',
     'src/assets/image4.png',
     'src/assets/image5.jpg',
   ];
@@ -133,10 +133,6 @@ export default function HomePage() {
         >
           Start Quiz
         </button>
-
-          <button className="button1Class" onClick={() => navigate("/leaderboard")}>
-            Leaderboard
-          </button>
         </h3>
       </div>
 
