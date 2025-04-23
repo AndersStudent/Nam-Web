@@ -82,6 +82,29 @@ app.post('/api/saveResult', async (req, res) => {
   }
 });
 
+// Get leaderboard results for a quiz title
+app.get('/api/leaderboard', async (req, res) => {
+  try {
+    const { quizTitle } = req.query;
+    if (!quizTitle) return res.status(400).json({ error: 'Missing quizTitle' });
+
+    const results = await Result.find({ quizTitle })
+      .sort({ _id: -1 }) // latest results first
+      .limit(10); // limit to last 10 entries
+
+    // You could also include usernames if you add that field later
+    const leaderboardData = results.map(result => ({
+      character: result.finalResult,
+      userId: result.userId || "Anonymous"
+    }));
+
+    res.json(leaderboardData);
+  } catch (err) {
+    console.error('❌ Failed to get leaderboard:', err);
+    res.status(500).json({ error: 'Failed to load leaderboard' });
+  }
+});
+
 // Start the server
 app.listen(3000, () => {
   console.log('🚀 Server running at http://localhost:3000');

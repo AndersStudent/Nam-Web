@@ -1,21 +1,18 @@
+// Quiz.jsx
 import React, { useState, useEffect } from 'react';
 import './quiz.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle Character, who would you be?" }) {
- 
   const location = useLocation();
+  const navigate = useNavigate();
   const userId = location.state?.userId || "1";
 
   const [questions, setQuestions]   = useState([]);
   const [currentQ, setCurrentQ]     = useState(0);
   const [answersLog, setAnswersLog] = useState([]);
   const [loading, setLoading]       = useState(true);
-  const [finished, setFinished]     = useState(false);
-  const [result, setResult]         = useState(null);
-  const [tally, setTally]           = useState({});
 
-  // Load quiz questions on mount
   useEffect(() => {
     fetch(`/api/getQuiz?title=${encodeURIComponent(quizTitle)}`)
       .then(res => res.json())
@@ -30,93 +27,64 @@ export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle C
   }, [quizTitle]);
 
   const handleAnswer = answerObj => {
-    // Build new log entry
     const entry = {
       questionText: questions[currentQ].questionText,
       chosenAnswer: answerObj.text,
-      pointsGiven: answerObj.pointsGiven  // assumed array of { character, points }
+      pointsGiven: answerObj.pointsGiven
     };
 
-    // Update answers log
     const newLog = [...answersLog];
     const existingIdx = newLog.findIndex(e => e.chosenAnswer === entry.chosenAnswer);
     if (existingIdx > -1) {
-      newLog[existingIdx] = {
-        ...newLog[existingIdx],
-        pointsGiven: [
-          ...newLog[existingIdx].pointsGiven,
-          ...entry.pointsGiven
-        ]
-      };
+      newLog[existingIdx].pointsGiven.push(...entry.pointsGiven);
     } else {
       newLog.push(entry);
     }
 
     const isLast = currentQ + 1 === questions.length;
-
     if (!isLast) {
-      // Still have more questions
       setAnswersLog(newLog);
       setCurrentQ(currentQ + 1);
-    } else {
-      // Calculate final tally
-      const allPoints = newLog.flatMap(a => a.pointsGiven);
-      const scoreMap = allPoints.reduce((acc, { character, points }) => {
-        acc[character] = (acc[character] || 0) + points;
-        return acc;
-      }, {});
+      return;
+    }
 
-      // Determine highest scorer
-      const topCharacter = Object.keys(scoreMap).reduce((a, b) =>
-        scoreMap[a] > scoreMap[b] ? a : b
-      );
+    // last question → calculate and navigate
+    const allPoints = newLog.flatMap(a => a.pointsGiven);
+    const scoreMap = allPoints.reduce((acc, { character, points }) => {
+      acc[character] = (acc[character] || 0) + points;
+      return acc;
+    }, {});
 
-      // Update state
-      setTally(scoreMap);
-      setResult(topCharacter);
-      setFinished(true);
-      setAnswersLog(newLog);
+    const topCharacter = Object.keys(scoreMap).reduce((a, b) =>
+      scoreMap[a] > scoreMap[b] ? a : b
+    );
 
-      // Persist result
-      const payload = {
+    // persist result
+    fetch('/api/saveResult', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         quizTitle,
         userId,
         pointsGiven: allPoints,
         finalResult: topCharacter
-      };
-
-      fetch('/api/saveResult', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
       })
-        .then(r => r.json())
-        .then(js => console.log('Result saved:', js.message))
-        .catch(e => console.error('Save failed:', e));
-    }
+    })
+      .then(r => r.json())
+      .then(js => console.log('Result saved:', js.message))
+      .catch(e => console.error('Save failed:', e));
+
+    // navigate to /result, passing the result in location.state
+    navigate('/leaderboard', {
+      state: {
+        finalResult: topCharacter
+      }
+    });
   };
 
   if (loading)           return <div>Loading…</div>;
   if (!questions.length) return <div>No questions found.</div>;
 
-  // Final screen showing result and score breakdown
-  if (finished) {
-    return (
-      <div className="result-screen">
-        <h2>You are {result}!</h2>
-        <h3>Your scores:</h3>
-        <ul>
-          {Object.entries(tally).map(([charName, pts]) => (
-            <li key={charName}>
-              {charName}: {pts} point{pts !== 1 ? 's' : ''}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
-  // Quiz question display
   const q = questions[currentQ];
   return (
     <div className="quiz-container">
@@ -131,33 +99,19 @@ export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle C
               onClick={() => handleAnswer(ans)}
             >
               <img
-                  src={`/images/${
-                      /color/i.test(q.questionText)
-                      ? 'colors'
-                      : /food/i.test(q.questionText)
-                      ? 'foods'
-                      : /hat/i.test(q.questionText)
-                      ? 'hats'
-                      : /home/i.test(q.questionText)
-                      ? 'homes'
-                      : /movie/i.test(q.questionText)
-                      ? 'movies'
-                      : /trans/i.test(q.questionText)
-                      ? 'transportation'
-                      : /vac/i.test(q.questionText)
-                      ? 'vacation'
-                      : 'animals'
-                  }/${ans.text.toLowerCase().replace(/\s+/g, '').replace(':', '')}.png`}
-                  alt={ans.text}
-                  onError={e => {
-                    console.log('Failed to load image:', e.target.src);
-                    e.target.src = '/images/placeholder.png';
-                  }}
-                  onLoad={e => {
-                    console.log('Successfully loaded image:', e.target.src);
-                  }}
-                />
-
+                src={`/images/${                
+                  /color/i.test(q.questionText)      ? 'colors' :
+                  /food/i.test(q.questionText)       ? 'foods' :
+                  /hat/i.test(q.questionText)        ? 'hats' :
+                  /home/i.test(q.questionText)       ? 'homes' :
+                  /movie/i.test(q.questionText)      ? 'movies' :
+                  /trans/i.test(q.questionText)      ? 'transportation' :
+                  /vac/i.test(q.questionText)        ? 'vacation' :
+                                                      'animals'
+                }/${ans.text.toLowerCase().replace(/\s+/g, '').replace(':', '')}.png`}
+                alt={ans.text}
+                onError={e => { e.target.src = '/images/placeholder.png'; }}
+              />
               <p>{ans.text}</p>
             </div>
           ))}
