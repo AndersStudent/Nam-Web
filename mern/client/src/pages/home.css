@@ -1,4 +1,4 @@
-/* Wraps the whole page */
+
 .pageContainer {
   display: flex;
   justify-content: center;
@@ -7,7 +7,7 @@
   gap: 20px;
   flex-wrap: nowrap;
 }
-/* Ad panel container */
+
 .adContainer {
   max-width: 14vw;
   height: 600px;
@@ -19,14 +19,14 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  padding: 10px; /* ← space inside the ad box */
+  padding: 10px; 
   box-sizing: border-box;
 }
 
 .nameContainer {
   flex-direction: column;
   text-align: center;
-  max-width: 65vw; /* a bit roomier */
+  max-width: 65vw;
   margin: 20px auto;
   color: black;
   font-size: 2rem;
@@ -45,35 +45,43 @@
 }
 
 
-/* Add space between ad and screen edge */
+
 .adLeft {
-  left: 20px; /* ← moves ad 20px away from left edge */
+  top: 55%;
+  left: 20px; 
 }
 
 .adRight {
-  right: 20px; /* ← moves ad 20px away from right edge */
+  top: 55%;
+  right: 20px;
 }
 
-/* Main content shifts over so it doesn’t overlap ads */
+
 .divclass {
   background-color: #fcfcfc;
-  margin-left: 200px; /* allows for ad + gap (160px + 20px padding) */
+  margin-left: 200px;
   margin-right: 200px;
   padding: 20px;
   box-sizing: border-box;
+  padding-top: 60px;
 }
 
 
-/* Text and button styling remains mostly the same */
+
 .h1Class {
+  width: 100%;
   font-size: 2.5rem;
   font-weight: bold;
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
   text-align: center;
   color: rgb(246, 61, 61);
   background-color: rgb(255, 251, 245);
   border-bottom: 1px solid #cecece;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .h2Class {
@@ -139,17 +147,17 @@
 
 .popupVideoWrapper {
   position: relative;
-  max-width: 1000px; /* Increase this value to make it bigger */
+  max-width: 1000px;
   width: 90%;
 }
 
 .popupAdGifOnly {
   width: 100%;
   height: auto;
-  max-height: 80vh; /* Ensures it doesn't exceed screen height */
+  max-height: 80vh; 
   border-radius: 10px;
   display: block;
-  object-fit: contain; /* Keeps the aspect ratio nice */
+  object-fit: contain; 
 }
 
 .exitAdButton {
@@ -214,3 +222,63 @@
   margin-top: 4px;
 }
 
+.cookieWrapper {
+  width: 50%;
+  max-width: 800px;
+  background-color: rgb(247, 252, 252);
+  padding: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cookieText {
+  font-size: 20px;
+  color: black;
+}
+
+.cookieExplanation {
+  font-size: 13px;
+  color: #555;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.cookieButtonGroup {
+  display: flex;
+  gap: 150px;
+}
+
+.buttonCookieAllow,
+.buttonCookieDecline {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttonCookieAllow {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.buttonCookieDecline {
+  background-color: #f44336;
+  color: white;
+}
+
+.errorTextPlace {
+  position: fixed;
+  left: 60%;
+  top: 64%;
+}

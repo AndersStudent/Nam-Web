@@ -4,6 +4,10 @@ import './home.css';
 
 export default function HomePage() {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    setShowCookies(true);
+  }, []);
 
   const images = [
     'src/assets/image6.jpg',
@@ -16,12 +20,13 @@ export default function HomePage() {
   const gifs = [
     'src/assets/gif1.gif',
     'src/assets/ZippyTube.gif',
-    'src/assets/FiatMultipla.gif',
+    'src/assets/FiatMultipla.gif',  
     'src/assets/RetroToy.gif'
   ];
 
+   const[showCookies, setShowCookies] = useState(false)
    const [showAdPopup, setShowAdPopup] = useState(false);
-   const [adCountdown, setAdCountdown] = useState(5); // 5 second timer
+   const [adCountdown, setAdCountdown] = useState(5); 
    const [canCloseAd, setCanCloseAd] = useState(false);
 
 
@@ -34,19 +39,20 @@ export default function HomePage() {
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
+  const [error, setError] = useState("");
 
 
 
-  // 👇 Handles GIF changes
+  // Handles GIF changes
   useEffect(() => {
     const gifInterval = setInterval(() => {
       setCurrentGif(prev => (prev + 1) % gifs.length);
-    }, 20000); // every 5 seconds
+    }, 20000); // every 20 secondss
 
     return () => clearInterval(gifInterval);
   }, []);
 
-  // 👇 Handles image slideshow with fade
+  // Handles image slideshow with fade
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
@@ -57,7 +63,7 @@ export default function HomePage() {
         );
         setFade(true);
       }, 300);
-    }, 4000);
+    }, 4000); // eery 4 seconds
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -85,7 +91,6 @@ export default function HomePage() {
 
   return (
     <div className="pageContainer">
-      {/* Left Ad */}
       <div className="adContainer adLeft">
         <img
           ref={leftGifRef}
@@ -95,7 +100,7 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Main Content */}
+      
       <div className="divclass">
         <title>FeedBuzzing</title>
         <h1 className="h1Class">FeedingBuzz</h1>
@@ -136,7 +141,7 @@ export default function HomePage() {
         </h3>
       </div>
 
-      {/* Right Ad */}
+      
       <div className="adContainer adRight">
         <img
           ref={rightGifRef}
@@ -162,6 +167,39 @@ export default function HomePage() {
             </span>
           </div>
             <img src={'src/assets/CarAd.gif'} alt="Ad" className="popupAdGifOnly" />
+          </div>
+        </div>
+      )}
+      {showCookies && (
+        <div className="cookieWrapper">
+          <div> 
+            <p className="cookieText">
+            We Value Your Privacy... Cookie Preference
+            </p>
+            <p className="cookieExplanation">
+            We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. 
+            By clicking "Allow Cookies," you consent to our use of cookies. You can manage your preferences at any time (not really :) ).
+            </p>
+          </div>
+          {error && (<p className="errorText errorTextPlace">{error}</p>)}
+
+         
+          <div className="cookieButtonGroup">
+            <button className="buttonCookieAllow"
+              onClick={() => {
+                setShowCookies(false);
+              }}>
+              Allow cookies
+            </button>
+            
+            <button className="buttonCookieDecline"
+              onClick={() => {
+                setError("Sorry, can't do that")
+              }}>
+              Decline all cookies
+              
+            </button>
+            
           </div>
         </div>
       )}
