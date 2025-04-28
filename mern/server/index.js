@@ -90,7 +90,7 @@ app.get('/api/leaderboard', async (req, res) => {
 
     const results = await Result.find({ quizTitle })
       .sort({ _id: -1 }) // latest results first
-      .limit(10); // limit to last 10 entries
+      .limit(100); // limit to last 10 entries
 
     // You could also include usernames if you add that field later
     const leaderboardData = results.map(result => ({
