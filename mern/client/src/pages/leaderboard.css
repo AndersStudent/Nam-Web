@@ -7,7 +7,7 @@
   max-width: 90vw;
   margin: 0 auto;
   gap: 2rem;
-  flex-wrap: wrap; /* makes it responsive on small screens */
+  flex-wrap: wrap; 
 }
 
 .result-main {
@@ -44,8 +44,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   min-height: 0;
-  max-height: 543px;     /* Set a max height for scroll */
-  overflow-y: auto;      /* Scroll if it overflows */
+  max-height: 543px;     
+  overflow-y: auto;      
   scroll-behavior: smooth;
 }
 

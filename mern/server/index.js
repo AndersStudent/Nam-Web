@@ -6,40 +6,40 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB Atlas (replace 'quizDb' with your actual DB name if different)
+// establish a connection to mongodb
 mongoose.connect(
   'mongodb+srv://niklasniha:V0X5xMMMTfecpMLv@cluster0.6hxu8fz.mongodb.net/quizDB?retryWrites=true&w=majority'
 );
 
-// Log MongoDB connection status
+// logging the connection
 mongoose.connection
-  .on('connected', () => console.log('✅ MongoDB connected'))
-  .on('error', err => console.error('❌ MongoDB connection error:', err));
+  .on('connected', () => console.log('MongoDB connected'))
+  .on('error', err => console.error('MongoDB connection error:', err));
 
-// Define the Quiz schema and model
+//schema and model
 const quizSchema = new mongoose.Schema({
   quizTitle: String,
   questionText: String,
   answers: Array
 }, {
-  collection: 'questions' // Match your MongoDB collection name exactly
+  collection: 'questions'
 });
 
 const Quiz = mongoose.model('questions', quizSchema);
 
-// Define the Result schema and model
+//schema and model
 const resultSchema = new mongoose.Schema({
   quizTitle: String,
   userId: String,
   pointsGiven: Array,
   finalResult: String
 }, {
-  collection: 'results' // Optional: add this if you use a specific collection name
+  collection: 'results'
 });
 
 const Result = mongoose.model('results', resultSchema);
 
-// Get a qustion from id
+// get question id
 app.get('/api/getQuiz/:id', async (req, res) => {
   try {
     const quizId = req.params.id;
@@ -55,7 +55,7 @@ app.get('/api/getQuiz/:id', async (req, res) => {
 });
 
 
-// GET all questions for a given quizTitle
+
 app.get('/api/getQuiz', async (req, res) => {
   try {
     const { title } = req.query;
@@ -82,17 +82,16 @@ app.post('/api/saveResult', async (req, res) => {
   }
 });
 
-// Get leaderboard results for a quiz title
+// leaderboard results
 app.get('/api/leaderboard', async (req, res) => {
   try {
     const { quizTitle } = req.query;
     if (!quizTitle) return res.status(400).json({ error: 'Missing quizTitle' });
 
     const results = await Result.find({ quizTitle })
-      .sort({ _id: -1 }) // latest results first
-      .limit(100); // limit to last 10 entries
+      .sort({ _id: -1 }) 
+      .limit(100); // right now is set limit to 100
 
-    // You could also include usernames if you add that field later
     const leaderboardData = results.map(result => ({
       character: result.finalResult,
       userId: result.userId || "Anonymous"
@@ -105,7 +104,7 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
-// Start the server
+// here we start the server
 app.listen(3000, () => {
   console.log('🚀 Server running at http://localhost:3000');
 });

@@ -48,7 +48,7 @@ export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle C
       return;
     }
 
-    // last question → calculate and navigate
+    
     const allPoints = newLog.flatMap(a => a.pointsGiven);
     const scoreMap = allPoints.reduce((acc, { character, points }) => {
       acc[character] = (acc[character] || 0) + points;
@@ -59,7 +59,7 @@ export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle C
       scoreMap[a] > scoreMap[b] ? a : b
     );
 
-    // persist result
+    
     fetch('/api/saveResult', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ export default function Quiz({ quizTitle = "If you were a Howl's Moving Castle C
       .then(js => console.log('Result saved:', js.message))
       .catch(e => console.error('Save failed:', e));
 
-    // navigate to /result, passing the result in location.state
+    
     navigate('/leaderboard', {
       state: {
         finalResult: topCharacter

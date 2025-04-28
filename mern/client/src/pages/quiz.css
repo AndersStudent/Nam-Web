@@ -1,27 +1,23 @@
-/* Main container for the quiz content */
 .quiz-container {
-    max-width: 90vw;   /* Takes up 90% of the viewport width */
-    margin: 0 auto;    /* Center it horizontally */
+    max-width: 90vw;   
+    margin: 0 auto;    
     padding: 4rem;
     text-align: center;
     color: black;
     font-family: 'Arial', sans-serif;
   }
-  
-  /* Question section styling */
+
   .question-section {
     margin-top: 2rem;
   }
-  
-  /* Grid layout for answer options */
+
   .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
   }
-  
-  /* Style for each answer card */
+
   .option-card {
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -29,14 +25,12 @@
     background-color: #fff;
     transition: 0.2s ease;
   }
-  
-  /* Hover effect */
+
   .option-card:hover {
     border-color: #66aaff;
     background-color: #f0f8ff;
   }
-  
-  /* Image styling inside option card */
+ 
   .option-card img {
     width: 375px;
     height: 300px;
@@ -44,7 +38,6 @@
     border-radius: 8px;
   }
   
-  /* Text below image */
   .option-card p {
     margin-top: 0.5rem;
     font-weight: bold;
